@@ -42,7 +42,8 @@
     cursor: pointer;
 }
 .sidebar.active #btn{
-    left: 90%;
+    left: 85%;
+    margin-top: 10px;
 }
 
 .sidebar .top .logo {
@@ -55,18 +56,20 @@
     opacity: 0;
 }
 .sidebar.active .top .logo {
+    
     opacity: 1;
 }
 .top .logo {
     font-size: 1.5rem;
     margin-right: 5px;
+    margin-top: 10px;
  
 }
 
 .top .logo i {
-    min-width: 50px;
+    min-width: 40px;
     text-align: center;
-    height: 50px;
+    height: 40px;
     border-radius: 12px;
     line-height: 40px;
 }
@@ -154,6 +157,9 @@
 }
 
 .main-content {
+    display: flex;
+    justify-content: center; /* Centers the container horizontally */
+    align-items:top;     /* Centers the container vertically */
     position: relative;
     background-color: #eee;
     min-height: 100vh;

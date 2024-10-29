@@ -24,8 +24,8 @@ from IMS_System import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.base),
-    path('about/',views.about, name='about')
-    #path('technical/', include('technical.urls')),  # Include Technical app URLs
+    path('about/',views.about, name='about'),
+    path('technical/', include('technical.urls')),  # Include Technical app URLs
     
 ]
 # Serve media files during development

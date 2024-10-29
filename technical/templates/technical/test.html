@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Responsive Registration Form | CodingLab </title>
+  <link rel="stylesheet" type="text/css" href="{% static 'technical/css/style.css' %}">
+</head>
+<div class="contanier">
+    <!-- Title section -->
+    <div class="title"><h1>Plot Registration</h1></div>
+    <div class="content">
+      <!-- Registration form -->
+      <form action="{% url 'add' %}",method="post">
+        {% csrf_token %}
+        <div class="user-details">
+          <!-- Input for Plot Number -->
+          <div class="input-box">
+            <span class="details">Plot Number</span>
+            <input type="text" placeholder="Enter Plot Number" required,name="plot_number",id="plot_number">
+          </div>
+          <!-- Input for Location -->
+          <div class="input-box">
+            <span class="details">Plot Location</span>
+            <input type="text" placeholder="Enter Plot Location i.e. Link Road 1 or Main Road" required,name="location",id="location">
+          </div>
+          <!-- Input for Status -->
+          <div class="input-box">
+            <span class="details">Plot Status</span>
+            <input type="text" placeholder="Enter Plot Status" required,name="plot_status",id="plot_status">
+          </div>
+          <!-- Input for Land Type -->
+          <div class="input-box">
+            <span class="details">Land Type</span>
+            <input type="text" placeholder="Enter Land Type i.e. Commercial or Industerial" required name="land_type",id="land_type">
+         </div>
+         </div>
+        <!-- Submit button -->
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>   
+</div> 
+{% endblock %}

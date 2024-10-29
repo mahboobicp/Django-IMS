@@ -1,0 +1,14 @@
+from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
+from technical import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.index),
+    path('plotregestration/',views.plotregestration,name='plotregestration'),
+    path('test/', views.test,name='test'),
+    path('add',views.add,name='add'),
+    
+]
