@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        {% block title %}
+        {% block head %}
         Django App
         {% endblock %}
+
     </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -18,7 +20,7 @@
         <div class="top">
             <div class="logo">
                 <i class="bx bxl-codepen"></i>
-                <span> IMS System</span>
+                <span> <b>IM</b> System</span>
             </div>
             <i class="bx bx-menu" id="btn"></i>
         </div>
@@ -29,20 +31,20 @@
         </div>
         <ul>
             <li>
-                <a href="#">
+                <a href="/">
                     <i class="bx bxs-grid-alt"></i>
                     <span class="nav-item">Dashboard</span>
                 </a>
                 <span class="tooltip">Dashboard</span>
             </li>
             <li>
-                <a href="/about">
+                <a href="/technical/test">
                     <i class="bx bxs-food-menu"></i>
                     <span class="nav-item">Industries</span>
                 </a>
                 <span class="tooltip">Industries</span>
             </li><li>
-                <a href="/">
+                <a href="/technical/">
                     <i class="bx bx-body"></i>
                     <span class="nav-item">Finance</span>
                 </a>

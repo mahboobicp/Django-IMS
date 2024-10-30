@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    About
+    Plot Regestration
 {% endblock %}
 
 {% block content %}
@@ -14,33 +14,52 @@
   <title> Responsive Registration Form | CodingLab </title>
   <link rel="stylesheet" type="text/css" href="{% static 'technical/css/style.css' %}">
 </head>
-<div class="contanier">
+<div class="formcontainer">
     <!-- Title section -->
     <div class="title"><h1>Plot Registration</h1></div>
     <div class="content">
       <!-- Registration form -->
-      <form action="{% url 'add' %}",method="post">
+      <form action="{% url 'add' %}", method="POST">
         {% csrf_token %}
         <div class="user-details">
           <!-- Input for Plot Number -->
           <div class="input-box">
             <span class="details">Plot Number</span>
-            <input type="text" placeholder="Enter Plot Number" required,name="plot_number",id="plot_number">
+            <input type="text" placeholder="Enter Plot Number" required, name="plotnumber",id="plot_number">
           </div>
           <!-- Input for Location -->
           <div class="input-box">
             <span class="details">Plot Location</span>
-            <input type="text" placeholder="Enter Plot Location i.e. Link Road 1 or Main Road" required,name="location",id="location">
+            <input type="text" placeholder="Enter Plot Location i.e. Link Road 1" required, name="loc", id="loc">
           </div>
           <!-- Input for Status -->
           <div class="input-box">
             <span class="details">Plot Status</span>
-            <input type="text" placeholder="Enter Plot Status" required,name="plot_status",id="plot_status">
-          </div>
+            <select name="plotstatus" id="plotstatus" required>
+                <option value="" disabled selected>Select Plot Status</option>
+                <option value="Available">Available</option>
+                <option value="Allotted">Allotted</option>
+                <option value="Canceled">Canceled</option>
+            </select>
+        </div>
           <!-- Input for Land Type -->
           <div class="input-box">
             <span class="details">Land Type</span>
-            <input type="text" placeholder="Enter Land Type i.e. Commercial or Industerial" required name="land_type",id="land_type">
+            <select name="landtype" id="landtype" required>
+                <option value="" disabled selected>Select Land Type</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Industrial">Industrial</option>
+            </select>
+        </div>
+         <!-- Input for Plot Area -->
+         <div class="input-box">
+            <span class="details">Plot Area</span>
+            <input type="text" placeholder="Enter Plot Area in Acres" required, name="plotarea", id="plotarea">
+         </div>
+          <!-- Input for Coverd Area -->
+          <div class="input-box">
+            <span class="details">Coverd Area</span>
+            <input type="text" placeholder="Enter Covered Area in Acres", name="coverdarea", id="coverdarea">
          </div>
          </div>
         <!-- Submit button -->

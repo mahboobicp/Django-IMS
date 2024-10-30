@@ -16,18 +16,26 @@ def test(request):
 
 def add(request):
     if request.method == 'POST':
-        plot_number = request.POST.get('plot_number')
-        location = request.POST.get('location')
-        plot_status = request.POST.get('plot_status')
-        land_type = request.POST.get('land_type')
+        plotnumber = request.POST.get('plotnumber')
+        loc = request.POST.get('loc')
+        plotstatus = request.POST.get('plotstatus')
+        landtype = request.POST.get('landtype')
+        plotarea = request.POST.get('plotarea')
+        coverdarea = request.POST.get('coverdarea')
 
+        print(f"Plot Number: {plotnumber}, Location: {loc}, Plot Status: {plotstatus}, Land Type: {landtype}")
+        pid =f"NOW-IE-{plotnumber}"
         plot1 = Plot(
-            plot_number = plot_number,
-            location = location,
-            plot_status = plot_status,
-            land_type = land_type
+            plot_number = pid,
+            location = loc,
+            plot_status = plotstatus,
+            land_type = landtype,
+            plot_area = plotarea,
+            coverd_area = coverdarea
         )
         plot1.save()
         return redirect('test')
     return render(request, 'technical/test.html')
+    
+
 
