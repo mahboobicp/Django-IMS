@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block title %}
 Plot Table
 {% endblock %}
@@ -15,9 +14,11 @@ Plot Table
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="{% static 'technical/css/table.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'technical/css/form.css' %}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{% static 'technical/js/table.js' %}"></script>
+<script src="{% static 'technical/js/form.js' %}"></script>
   <body>
     <div class="plotgrid">
         <div class="table-wrapper">
@@ -44,11 +45,14 @@ Plot Table
                         <th>Plot Number</th>
                         <th>Plot Status</th>
 						<th>Land Type</th>
+						<th>Location</th>
                         <th>Area (Acre)</th>
+						<th>Coverd Area</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+				{% for i in plot_data %}
                     <tr>
 						<td>
 							<span class="custom-checkbox">
@@ -56,79 +60,18 @@ Plot Table
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-                        <td>Thomas Hardy</td>
-                        <td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-                        <td>(171) 555-2222</td>
+                        <td>{{ i.plot_number }}</td>
+                        <td>{{ i.plot_status }}</td>
+						<td>{{ i.land_type }}</td>
+						<td>{{ i.location }}</td>
+                        <td>{{ i.plot_area }}</td>
+						<td>{{ i.coverd_area }}</td>
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                            <a href="#editEmployeeModal-{{ forloop.counter }}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                             <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                         </td>
                     </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-                        <td>Dominique Perrier</td>
-                        <td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-                        <td>(313) 555-5735</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-                        <td>Maria Anders</td>
-                        <td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-                        <td>(503) 555-9931</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-                        <td>Fran Wilson</td>
-                        <td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-                        <td>(204) 619-5731</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-                        <td>Martin Blank</td>
-                        <td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-                        <td>(480) 631-2097</td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr> 
+                {% endfor %} 
                 </tbody>
             </table>
 			<div class="clearfix">
@@ -145,97 +88,139 @@ Plot Table
             </div>
         </div>
     </div>
-	<!-- Edit Modal HTML -->
+	<!-- Add Modal HTML -->
 	<div id="addEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Add Employee</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+		<div class="modal-dialog modal-lg"> <!-- Enlarged form size -->
+			<div class="formcontainer">
+				<!-- Header with title and separator line -->
+				<div class="header">
+					<h2>PLOT REGESTRATIONS FORM</h2>
+				</div>
+				<hr> <!-- Divider between header and form -->
+				
+				<!-- Form content -->
+				<div class="content">
+					<form action="{% url 'add' %}" method="POST" onsubmit="return validateForm()">
+						{% csrf_token %}
+						<div class="user-details">
+							<!-- Plot Number Field -->
+							<div class="input-box">
+								<label class="details">Plot Number</label>
+								<input type="text" placeholder="Enter Plot Number" required name="plotnumber" id="plot_number">
+							</div>
+							<!-- Location Field -->
+							<div class="input-box">
+								<label class="details">Plot Location</label>
+								<input type="text" placeholder="Enter Plot Location" required name="loc" id="loc">
+							</div>
+							<!-- Plot Status Dropdown -->
+							<div class="input-box">
+								<label class="details">Plot Status</label>
+								<select name="plotstatus" id="plotstatus" required>
+									<option value="" disabled selected>Select Plot Status</option>
+									<option value="Available">Available</option>
+									<option value="Allotted">Allotted</option>
+									<option value="Canceled">Canceled</option>
+								</select>
+							</div>
+							<!-- Land Type Dropdown -->
+							<div class="input-box">
+								<label class="details">Land Type</label>
+								<select name="landtype" id="landtype" required>
+									<option value="" disabled selected>Select Land Type</option>
+									<option value="Commercial">Commercial</option>
+									<option value="Industrial">Industrial</option>
+								</select>
+							</div>
+							<!-- Plot Area Field -->
+							<div class="input-box">
+								<label class="details">Plot Area</label>
+								<input type="text" placeholder="Enter Plot Area in Acres" required name="plotarea" id="plotarea">
+							</div>
+							<!-- Covered Area Field -->
+							<div class="input-box">
+								<label class="details">Covered Area</label>
+								<input type="text" placeholder="Enter Covered Area in Acres" name="coverdarea" id="coverdarea">
+							</div>
 						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+						<!-- Buttons for Submit and Cancel -->
+						<div class="button-container">
+							<button type="submit" class="btn-submit">Register</button>
+							<button type="button" class="btn-cancel" data-dismiss="modal">Cancel</button>
 						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-success" value="Add">
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Edit Employee</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<div class="form-group">
-							<label>Name</label>
-							<input type="text" class="form-control" required>
+	 {% for i in plot_data %}
+	<div id="editEmployeeModal-{{ forloop.counter }}" class="modal fade">
+		<div class="modal-dialog modal-lg"> <!-- Enlarged form size -->
+			<div class="formcontainer">
+				<!-- Header with title and separator line -->
+				<div class="header">
+					<h2>UPDATE RECORD </h2>
+				</div>
+				<hr> <!-- Divider between header and form -->
+				
+				<!-- Form content -->
+				<div class="content">
+					<form action="update" method="POST">
+						{% csrf_token %}
+						<div class="user-details">
+							<!-- Plot Number Field -->
+							<div class="input-box">
+								<label class="details">Plot Number</label>
+								<input value="{{ i.plot_number }}" type="text" placeholder="Enter Plot Number" name="plotnumber" id="plot_number">
+							</div>
+							<!-- Location Field -->
+							<div class="input-box">
+								<label class="details">Plot Location</label>
+								<input value="{{ i.location }}" type="text" placeholder="Enter Plot Location" name="loc" id="loc">
+							</div>
+							<!-- Plot Status Dropdown -->
+							<div class="input-box">
+								<label class="details">Plot Status</label>
+								<select name="plotstatus" id="plotstatus">
+									<option value="" disabled selected>Select Plot Status</option>
+									<option value="Available" {% if i.plot_status == "Available" %}selected{% endif %}>Available</option>
+									<option value="Allotted" {% if i.plot_status == "Allotted" %}selected{% endif %}>Allotted</option>
+									<option value="Canceled" {% if i.plot_status == "Canceled" %}selected{% endif %}>Canceled</option>
+								</select>
+							</div>
+							
+							<!-- Land Type Dropdown -->
+							<div class="input-box">
+								<label class="details">Land Type</label>
+								<select name="landtype" id="landtype" >
+									<option value="" disabled selected>Select Land Type</option>
+									<option value="Commercial" {% if i.land_type == "Commercial" %}selected{% endif %}>Commercial</option>
+									<option value="Industrial" {% if i.land_type == "Industrial" %}selected{% endif %}>Industrial</option>
+								</select>
+							</div>							
+							<!-- Plot Area Field -->
+							<div class="input-box">
+								<label class="details">Plot Area</label>
+								<input value="{{ i.plot_area }}" type="text" placeholder="Enter Plot Area in Acres" name="plotarea" id="plotarea">
+							</div>
+							<!-- Covered Area Field -->
+							<div class="input-box">
+								<label class="details">Covered Area</label>
+								<input value="{{ i.coverd_area }}" type="text" placeholder="Enter Covered Area in Acres" name="coverdarea" id="coverdarea">
+							</div>
 						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" required>
+						<!-- Buttons for Submit and Cancel -->
+						<div class="button-container">
+							<button type="submit" class="btn-submit">Update</button>
+							<button type="button" class="btn-cancel" data-dismiss="modal">Cancel</button>
 						</div>
-						<div class="form-group">
-							<label>Address</label>
-							<textarea class="form-control" required></textarea>
-						</div>
-						<div class="form-group">
-							<label>Phone</label>
-							<input type="text" class="form-control" required>
-						</div>					
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Delete Modal HTML -->
-	<div id="deleteEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Delete Employee</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+{% endfor %}
 </body>
 </html>
 {% endblock %}

@@ -10,5 +10,8 @@ urlpatterns = [
     path('plotregestration/',views.plotregestration,name='plotregestration'),
     path('test/', views.test,name='test'),
     path('add',views.add,name='add'),
+    path('edit',views.edit,name='edit'),
+    path('update', views.update, name='update'),
+
     
 ]

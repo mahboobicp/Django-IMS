@@ -13,7 +13,7 @@
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
@@ -21,6 +21,7 @@
     background-color: #12171e;
     padding: 0rem 0.8rem;
     transition: all 0.5s ease;
+    z-index: 1000;
 }
 
 .sidebar.active ~ .main-content {
@@ -141,12 +142,12 @@
 
 .sidebar ul li .tooltip {
     position: absolute;
-    left: 125px;
+    left: 100px;
     top: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0.4, 0.2);
     border-radius: .6rem;
-    padding: .4rem 1.2rem;
+    padding: .4rem .4rem;
     line-height: 1.8rem;
     z-index: 20;
     opacity: 0;

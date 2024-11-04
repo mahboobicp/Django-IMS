@@ -7,8 +7,9 @@ body {
     font-size: 13px;
 }
 .plotgrid{
+    margin-top: -1%;
     margin-left: -3%;
-    width: 105%;
+    width: 100%;
     background-color: whitesmoke;
     border-radius: 5px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Increase shadow size for a more visible pop-up */
@@ -199,7 +200,7 @@ table.table .avatar {
 }
 /* Modal styles */
 .modal .modal-dialog {
-    max-width: 400px;
+    max-width: 900px;
 }
 .modal .modal-header, .modal .modal-body, .modal .modal-footer {
     padding: 20px 30px;
