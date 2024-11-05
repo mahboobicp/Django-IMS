@@ -8,6 +8,11 @@ function mergePlots() {
         alert("Please select at least two plot to merge.");
         return;
     }
+      // Ask for confirmation
+    const isConfirmed = confirm("Are you sure you want to merge the selected plots?");
+    if (!isConfirmed) {
+        return; // If not confirmed, exit the function
+    }
 
     // Create a data object
     const data = { plot_numbers: selectedValues };

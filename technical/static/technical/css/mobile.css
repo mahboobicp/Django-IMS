@@ -1,0 +1,57 @@
+@media (max-width: 768px) {
+    .plotgrid, .table-wrapper {
+        padding: 10px; /* Reduce padding */
+    }
+    .table-wrapper .row {
+        flex-direction: column; /* Stack elements vertically */
+    }
+    .table-wrapper .search-container, 
+    .table-wrapper .btn {
+        width: 100%; /* Full width for buttons and search */
+        margin-bottom: 10px; /* Add some space between elements */
+    }
+    .table {
+        font-size: 12px; /* Reduce font size for smaller screens */
+    }
+    .input-box {
+        width: 100%; /* Full width input boxes */
+    }
+}
+
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+}
+
+@media (max-width: 576px) {
+    .btn, .input-box input, .input-box select {
+        width: 100%; /* Full width for smaller screens */
+    }
+}
+
+.modal-dialog {
+    max-width: 90%; /* Restrict modal width */
+    margin: 0 auto;
+}
+@media (max-width: 576px) {
+    .modal-dialog {
+        width: 100%; /* Full width on very small screens */
+    }
+}
+
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 18px; /* Smaller font for headings */
+    }
+    .details {
+        font-size: 14px; /* Reduce font size for labels */
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container, .btn {
+        margin-bottom: 10px; /* Space between elements */
+    }
+}

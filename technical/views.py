@@ -102,7 +102,7 @@ def clup(request):
         # Generate a new plot number with the format NOW-IE-Plot1-Plot2
         # Get only the plot numbers from the selected plots, excluding the NOW-IE prefix
         plot_number_list = [plot.plot_number[7:] for plot in selected_plots]  # Slicing off 'NOW-IE-'
-        new_plot_number = 'NOW-IE-' + '-'.join(plot_number_list)  # Join selected plot numbers without the prefix
+        new_plot_number = 'NOW-IE-MRG-' + '-'.join(plot_number_list)  # Join selected plot numbers without the prefix
 
         # Create a new plot record using data from the first selected plot
         if selected_plots.exists():
