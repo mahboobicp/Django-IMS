@@ -19,6 +19,7 @@ Plot Table
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{% static 'technical/js/table.js' %}"></script>
 <script src="{% static 'technical/js/form.js' %}"></script>
+<script src="{% static 'technical/js/merage.js' %}"></script>
   <body>
     <div class="plotgrid">
         <div class="table-wrapper">
@@ -29,7 +30,8 @@ Plot Table
 					</div>
 					<div class="col-sm-6">
 						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Plot</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+						<a href="#" class="btn btn-danger" onclick="mergePlots()"><i class="material-icons">&#xE147;</i> 
+							<span>Merage</span></a>						
 					</div>
                 </div>
             </div>
@@ -56,7 +58,7 @@ Plot Table
                     <tr>
 						<td>
 							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
+								<input type="checkbox" name="selected_plots" value="{{ i.plot_number }}"> <!-- Use the unique ID -->
 								<label for="checkbox1"></label>
 							</span>
 						</td>
@@ -166,7 +168,7 @@ Plot Table
 				
 				<!-- Form content -->
 				<div class="content">
-					<form action="update" method="POST">
+					<form action="{% url 'update' %}" method="POST">
 						{% csrf_token %}
 						<div class="user-details">
 							<!-- Plot Number Field -->
