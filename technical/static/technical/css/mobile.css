@@ -1,20 +1,20 @@
 @media (max-width: 768px) {
     .plotgrid, .table-wrapper {
-        padding: 10px; /* Reduce padding */
+        padding: 1px; /* Reduce padding */
     }
     .table-wrapper .row {
         flex-direction: column; /* Stack elements vertically */
     }
     .table-wrapper .search-container, 
     .table-wrapper .btn {
-        width: 100%; /* Full width for buttons and search */
+        width: 50%; /* Full width for buttons and search */
         margin-bottom: 10px; /* Add some space between elements */
     }
     .table {
         font-size: 12px; /* Reduce font size for smaller screens */
     }
     .input-box {
-        width: 100%; /* Full width input boxes */
+        width: 50%; /* Full width input boxes */
     }
 }
 
@@ -26,7 +26,7 @@
 
 @media (max-width: 576px) {
     .btn, .input-box input, .input-box select {
-        width: 100%; /* Full width for smaller screens */
+        width: 50%; /* Full width for smaller screens */
     }
 }
 
@@ -36,7 +36,7 @@
 }
 @media (max-width: 576px) {
     .modal-dialog {
-        width: 100%; /* Full width on very small screens */
+        width: 50%; /* Full width on very small screens */
     }
 }
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.db.models import Sum, Count  # Import Sum and Count for aggregations
 from .models import Plot
 from django.utils import timezone
 import json
@@ -18,6 +19,33 @@ def index(request):
 
 def plotregestration(request):
     return render(request, 'technical/plotregestration.html')
+
+def dashboard(request):
+      # Fetch plot data from the database
+    total_area = Plot.objects.aggregate(Sum('coverd_area'))  # Assuming 'area' field is in Plot model
+    total_plots = Plot.objects.filter(cluped=False).count()
+    # Count of plots where land_type is "Commercial" and cluped is True
+    commercial_clumped_plot_count = Plot.objects.filter(land_type="Commercial", cluped=False).count()
+    industerial_clumped_plot_count = Plot.objects.filter(land_type="Industrial", cluped=False).count()
+
+    # Count of plots for each status
+    vacant_count = Plot.objects.filter(plot_status="Vacant",cluped=False).count()
+    available_count = Plot.objects.filter(plot_status="Available",cluped=False).count()
+    under_construction_count = Plot.objects.filter(plot_status="Under Construction",cluped=False).count()
+    operational_count = Plot.objects.filter(plot_status="Operational",cluped=False).count()
+
+
+    context = {
+        'total_plots': total_plots,
+        'total_area': total_area,
+        'comm_plot': commercial_clumped_plot_count,
+        'ind_plot' : industerial_clumped_plot_count,
+        'vacant_plot' : vacant_count,
+        'available_plot' : available_count,
+        'under_cons' : under_construction_count,
+        'operational_plot' : operational_count,
+    }
+    return render(request, 'technical/dashboard.html',context)
 
 def test(request):
     return render(request, 'technical/test.html')
@@ -81,6 +109,15 @@ def update(request):
         plot1.save()
         return redirect('/technical')
 
+
+def delete_plot(request):
+    if request.method == 'POST':
+        plot_id = request.POST.get('plot_id')
+        plot = get_object_or_404(Plot, plot_number=plot_id)  # Adjust field to your model
+        plot.delete()
+    return redirect('/technical')
+
+
 def clup(request):
     if request.method == 'POST':
         # Parse the JSON data from the request body
@@ -121,6 +158,7 @@ def clup(request):
             new_plot.save()
             return redirect('/technical')
         return redirect('/technical')
+        
 
 
     
