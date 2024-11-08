@@ -26,18 +26,18 @@ body{
   display: flex;
   width: 100%;
 }
-.main-top i{
+.main-top i, .main-course i{
   position: flex;
   left: 0;
   margin: 10px 30px;
   color: rgb(19, 13, 102);
   cursor: pointer;
 }
-.main-skills{
+.plot_details{
   display: flex;
   margin-top: 20px;
 }
-.main-skills .card{
+.plot_details .card{
   width: 25%;
   margin: 10px;
   background: #fff;
@@ -46,14 +46,14 @@ body{
   padding: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
 }
-.main-skills .card h3{
+.plot_details .card h3{
   margin: 10px;
   text-transform: capitalize;
 }
-.main-skills .card p{
+.plot_details .card p{
   font-size: 12px;
 }
-.main-skills .card button{
+.plot_details .card button{
   background: orangered;
   color: #fff;
   padding: 7px 15px;
@@ -61,10 +61,10 @@ body{
   margin-top: 15px;
   cursor: pointer;
 }
-.main-skills .card button:hover{
+.plot_details .card button:hover{
   background: rgba(223, 70, 15, 0.856);
 }
-.main-skills .card i{
+.plot_details .card i{
   font-size: 22px;
   padding: 10px;
 }
@@ -136,3 +136,79 @@ body{
 .js{
   color: rgb(28, 98, 179);
 }
+
+/* Card Colors */
+.plot_details .card:nth-child(1) {
+    background-color: #ffefba; /* Light Yellow */
+  }
+  
+  .plot_details .card:nth-child(2) {
+    background-color: #bae1ff; /* Light Blue */
+  }
+  
+  .plot_details .card:nth-child(3) {
+    background-color: #ffccd5; /* Light Pink */
+  }
+  
+  .plot_details .card:nth-child(4) {
+    background-color: #caffbf; /* Light Green */
+  }
+  
+  /* Card Hover Effect */
+  .plot_details .card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .plot_details .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .plot_details {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .plot_details .card {
+      width: 80%;
+      margin: 10px 0;
+    }
+  
+    .course-box .course {
+      flex-wrap: wrap;
+    }
+  
+    .box {
+      width: 90%;
+      margin: 10px auto;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .main-top h2 {
+      font-size: 1.5rem;
+    }
+  
+    .main-course h3 {
+      font-size: 1.3rem;
+      text-align: center;
+    }
+  }
+  /* Updated Styling for Dashboard and Zone Information Headings */
+.main-top h2, .main-course h2 {
+    background-color: #f0f4f8; /* Light background color */
+    color: #333; /* Darker text color for contrast */
+    padding: 10px 10px; /* Increased padding for a more spacious look */
+    border-radius: 8px; /* Slightly rounded corners */
+    display: block; /* Full width */
+    width: 100%; /* Full width of the container */
+    text-align: left; /* Center-align the text */
+    font-size: 1.8rem;
+    font-weight: 1000;
+    letter-spacing: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a lifted look */
+  }
+  
