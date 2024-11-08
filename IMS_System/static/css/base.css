@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-size: 14px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     box-sizing: border-box;
 
@@ -179,7 +180,7 @@
 }
 
 .container {
-   
+    
     display: flex;
     justify-self: space-between;
     background-color: #e5f1e6;
