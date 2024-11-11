@@ -3,13 +3,14 @@ from django.db.models import Sum, Count  # Import Sum and Count for aggregations
 from .models import Plot
 from django.utils import timezone
 import json
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def base(request):
     return render(request, 'base.html')
 
 def index(request):
-    plot_data = Plot.objects.filter(cluped=False).order_by('-plot_number')[:10]
+    plot_data = Plot.objects.filter(cluped=False,as_bifurcate=False).order_by('-plot_number')[:10]
 
     plot_data_dic = {
         'plot_data' : plot_data
@@ -162,7 +163,20 @@ def clup(request):
 
 
     
-
+@csrf_exempt
+def bifurcate_plots(request):
+    if request.method == 'POST':
+      
+        data = json.loads(request.body)
+        plot_numbers = data.get('plot_numbers', [])
+        print(plot_numbers)
+        try:
+            # Update selected plots
+            Plot.objects.filter(plot_number__in=plot_numbers).update(as_bifurcate=True)
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+       
     
 
 

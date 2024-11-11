@@ -25,6 +25,7 @@ Plot Regestration
 <script src="{% static 'technical/js/merage.js' %}"></script>
 <script src="{% static 'technical/js/search.js' %}"></script>
 <script src="{% static 'technical/js/delete.js' %}"></script>
+<script src="{% static 'technical/js/bifurcate.js' %}"></script>
   <body>
 	<div class="container">
 		<section class="main">
@@ -40,7 +41,7 @@ Plot Regestration
 				  <div class="col-md-6 col-12 d-flex align-items-center">
 					<div class="search-container position-relative w-100">
 					  <input type="text" id="searchField" class="form-control" placeholder="Search plots..." onkeypress="handleSearchKeyPress(event)">
-					  <i class="material-icons search-icon position-absolute">search</i>
+					  
 					</div>
 				  </div>
 			  
@@ -50,7 +51,10 @@ Plot Regestration
 					<a href="#addEmployeeModal" class="btn btn-add text-white d-flex align-items-center" data-toggle="modal">
 					  <i class="material-icons me-1">add</i> <span>Add New Plot</span>
 					</a>
-			  
+					<!-- Merge Button -->
+					<a href="#" class="btn btn-bif text-white d-flex align-items-center" onclick="bifPlots()">
+						<i class="material-icons me-1">call_split</i> <span>Bifurcate</span>
+					  </a>
 					<!-- Merge Button -->
 					<a href="#" class="btn btn-merge text-white d-flex align-items-center" onclick="mergePlots()">
 					  <i class="material-icons me-1">merge_type</i> <span>Merge</span>

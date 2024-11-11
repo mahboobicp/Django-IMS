@@ -11,6 +11,7 @@ class Plot(models.Model):
     plot_area = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     coverd_area = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
     cluped = models.BooleanField(default=False,blank=True, null=True)
+    as_bifurcate = models.BooleanField(default=False,blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True,null=True)
 

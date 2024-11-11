@@ -26,6 +26,7 @@ urlpatterns = [
     path('',views.base),
     path('about/',views.about, name='about'),
     path('technical/', include('technical.urls')),  # Include Technical app URLs
+   
     
 ]
 # Serve media files during development
