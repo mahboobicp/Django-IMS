@@ -1,18 +1,15 @@
 
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700");
 body {
-    color: #566787;
-    background: #f5f5f5;
-    font-family: 'Varela Round', sans-serif;
-    font-size: 11px;
-    width: 100%;
+    background: #dfe9f5;
+  
 }
 .main {
     align-items: center;
 }
 .plotgrid{
     margin-top: -1%;
-    margin-left: 1%;
+    margin-left: 0%;
     width: 100%;
     background-color: whitesmoke;
     border-radius: 5px;
@@ -307,7 +304,7 @@ table.table .avatar {
     }
     .table-title .col-md-6 .search-container,
     .table-title .col-md-6 .btn {
-      width: 100%;
+      width: 90%;
       justify-content: center;
     }
   }

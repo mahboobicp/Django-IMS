@@ -24,16 +24,16 @@ def plotregestration(request):
 def dashboard(request):
       # Fetch plot data from the database
     total_area = Plot.objects.aggregate(Sum('coverd_area'))  # Assuming 'area' field is in Plot model
-    total_plots = Plot.objects.filter(cluped=False).count()
+    total_plots = Plot.objects.filter(cluped=False,as_bifurcate=False).count()
     # Count of plots where land_type is "Commercial" and cluped is True
-    commercial_clumped_plot_count = Plot.objects.filter(land_type="Commercial", cluped=False).count()
-    industerial_clumped_plot_count = Plot.objects.filter(land_type="Industrial", cluped=False).count()
+    commercial_clumped_plot_count = Plot.objects.filter(land_type="Commercial", cluped=False,as_bifurcate=False).count()
+    industerial_clumped_plot_count = Plot.objects.filter(land_type="Industrial", cluped=False,as_bifurcate=False).count()
 
     # Count of plots for each status
-    vacant_count = Plot.objects.filter(plot_status="Vacant",cluped=False).count()
-    available_count = Plot.objects.filter(plot_status="Available",cluped=False).count()
-    under_construction_count = Plot.objects.filter(plot_status="Under Construction",cluped=False).count()
-    operational_count = Plot.objects.filter(plot_status="Operational",cluped=False).count()
+    vacant_count = Plot.objects.filter(plot_status="Vacant",cluped=False,as_bifurcate=False).count()
+    available_count = Plot.objects.filter(plot_status="Available",cluped=False,as_bifurcate=False).count()
+    under_construction_count = Plot.objects.filter(plot_status="Under Construction",cluped=False,as_bifurcate=False).count()
+    operational_count = Plot.objects.filter(plot_status="Operational",cluped=False,as_bifurcate=False).count()
 
 
     context = {
