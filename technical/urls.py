@@ -16,5 +16,6 @@ urlpatterns = [
     path('clup/', views.clup, name='clup'),
     path('delete', views.delete_plot, name='delete'),
     path('bifurcate_plots/', views.bifurcate_plots, name='bifurcate_plots'),
+    path('plotdetails/', views.plotdetails, name='plotdetails'),
     
 ]

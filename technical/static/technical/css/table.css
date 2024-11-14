@@ -308,4 +308,6 @@ table.table .avatar {
       justify-content: center;
     }
   }
-  
+  .plot-number-column {
+    width: 200px; /* Adjust this value to your desired width */
+}

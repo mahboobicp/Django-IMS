@@ -21,32 +21,77 @@ def index(request):
 def plotregestration(request):
     return render(request, 'technical/plotregestration.html')
 
+from django.db.models import Sum
+
 def dashboard(request):
-      # Fetch plot data from the database
-    total_area = Plot.objects.aggregate(Sum('coverd_area'))  # Assuming 'area' field is in Plot model
-    total_plots = Plot.objects.filter(cluped=False,as_bifurcate=False).count()
-    # Count of plots where land_type is "Commercial" and cluped is True
-    commercial_clumped_plot_count = Plot.objects.filter(land_type="Commercial", cluped=False,as_bifurcate=False).count()
-    industerial_clumped_plot_count = Plot.objects.filter(land_type="Industrial", cluped=False,as_bifurcate=False).count()
+    # Fetch total covered area from the database
+    total_area = Plot.objects.aggregate(Sum('coverd_area'))['coverd_area__sum']  # Assuming 'coverd_area' is the field name
+    total_plots = Plot.objects.filter(cluped=False, as_bifurcate=False).count()
+    
+    # Count of plots based on land type
+    commercial_clumped_plot_count = Plot.objects.filter(land_type="Commercial", cluped=False, as_bifurcate=False).count()
+    industrial_clumped_plot_count = Plot.objects.filter(land_type="Industrial", cluped=False, as_bifurcate=False).count()
 
     # Count of plots for each status
-    vacant_count = Plot.objects.filter(plot_status="Vacant",cluped=False,as_bifurcate=False).count()
-    available_count = Plot.objects.filter(plot_status="Available",cluped=False,as_bifurcate=False).count()
-    under_construction_count = Plot.objects.filter(plot_status="Under Construction",cluped=False,as_bifurcate=False).count()
-    operational_count = Plot.objects.filter(plot_status="Operational",cluped=False,as_bifurcate=False).count()
+    vacant_count = Plot.objects.filter(plot_status="Vacant", cluped=False, as_bifurcate=False).count()
+    available_count = Plot.objects.filter(plot_status="Available", cluped=False, as_bifurcate=False).count()
+    under_construction_count = Plot.objects.filter(plot_status="Under Construction", cluped=False, as_bifurcate=False).count()
+    operational_count = Plot.objects.filter(plot_status="Operational", cluped=False, as_bifurcate=False).count()
 
+    # Total area for each status
+    vacant_area = Plot.objects.filter(plot_status="Vacant", cluped=False, as_bifurcate=False).aggregate(Sum('coverd_area'))['coverd_area__sum']
+    available_area = Plot.objects.filter(plot_status="Available", cluped=False, as_bifurcate=False).aggregate(Sum('coverd_area'))['coverd_area__sum']
+    under_construction_area = Plot.objects.filter(plot_status="Under Construction", cluped=False, as_bifurcate=False).aggregate(Sum('coverd_area'))['coverd_area__sum']
+    operational_area = Plot.objects.filter(plot_status="Operational", cluped=False, as_bifurcate=False).aggregate(Sum('coverd_area'))['coverd_area__sum']
 
+    # Total area for each land type
+    commercial_area = Plot.objects.filter(land_type="Commercial", cluped=False, as_bifurcate=False).aggregate(Sum('plot_area'))['plot_area__sum']
+    industrial_area = Plot.objects.filter(land_type="Industrial", cluped=False, as_bifurcate=False).aggregate(Sum('plot_area'))['plot_area__sum']
+    print(industrial_area)
+    # Calculate percentages for each plot status
+    vacant_percentage = round((vacant_count / total_plots * 100),2) if total_plots > 0 else 0
+    available_percentage = round((available_count / total_plots * 100),2) if total_plots > 0 else 0
+    under_construction_percentage = round((under_construction_count / total_plots * 100),2) if total_plots > 0 else 0
+    operational_percentage = round((operational_count / total_plots * 100),2) if total_plots > 0 else 0
+
+    # Calculate percentage of commercial vs industrial plots
+    total_land_plots = commercial_clumped_plot_count + industrial_clumped_plot_count
+    commercial_percentage = round((commercial_clumped_plot_count / total_land_plots * 100),2) if total_land_plots > 0 else 0
+    industrial_percentage = round((industrial_clumped_plot_count / total_land_plots * 100),2) if total_land_plots > 0 else 0
+
+    # Prepare the context with all data
     context = {
         'total_plots': total_plots,
         'total_area': total_area,
         'comm_plot': commercial_clumped_plot_count,
-        'ind_plot' : industerial_clumped_plot_count,
-        'vacant_plot' : vacant_count,
-        'available_plot' : available_count,
-        'under_cons' : under_construction_count,
-        'operational_plot' : operational_count,
+        'ind_plot': industrial_clumped_plot_count,
+        'vacant_plot': vacant_count,
+        'available_plot': available_count,
+        'under_cons': under_construction_count,
+        'operational_plot': operational_count,
+        
+        # Percentages for each status
+        'vacant_percentage': vacant_percentage,
+        'available_percentage': available_percentage,
+        'under_construction_percentage': under_construction_percentage,
+        'operational_percentage': operational_percentage,
+        
+        # Commercial vs Industrial Plot Distribution
+        'commercial_percentage': commercial_percentage,
+        'industrial_percentage': industrial_percentage,
+        
+        # Area data for each plot status
+        'vacant_area': vacant_area or 0,
+        'available_area': available_area or 0,
+        'under_construction_area': under_construction_area or 0,
+        'operational_area': operational_area or 0,
+        
+        # Area data for each land type
+        'commercial_area': commercial_area or 0,
+        'industrial_area': industrial_area or 0,
     }
-    return render(request, 'technical/dashboard.html',context)
+
+    return render(request, 'technical/dashboard.html', context)
 
 def test(request):
     return render(request, 'technical/test.html')
@@ -73,7 +118,6 @@ def add(request):
             land_type = landtype,
             plot_area = plotarea,
             coverd_area = coverdarea,
-            created_at = timezone.now(),
         )
         plot1.save()
         return redirect('/technical')
@@ -105,9 +149,9 @@ def update(request):
             land_type = landtype,
             plot_area = plotarea,
             coverd_area = coverdarea,
-            updated_at = timezone.now(),
         )
         plot1.save()
+        plot.save()
         return redirect('/technical')
 
 
@@ -180,3 +224,30 @@ def bifurcate_plots(request):
     
 
 
+def plotdetails(request):
+    # Start with all plots
+    plots = Plot.objects.all()
+    print(plots)
+    # Get filter values from the request, if any
+    plot_status = request.GET.get('plot_status')
+    land_type = request.GET.get('land_type')
+    plot_number = request.GET.get('plot_number')
+
+    # Apply filters only if a value is selected
+    if plot_status:
+        plots = plots.filter(plot_status=plot_status)
+    if land_type:
+        plots = plots.filter(land_type=land_type)
+    if plot_number:
+        plots = plots.filter(plot_number__icontains=plot_number)
+    else:
+         plots = Plot.objects.all()
+
+    context = {
+        'plots': plots,
+        'plot_status': plot_status,
+        'land_type': land_type,
+        'plot_number': plot_number,
+    }
+    print(context)
+    return render(request, 'technical/plotdetails.html', context)

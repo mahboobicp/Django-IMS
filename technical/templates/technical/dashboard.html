@@ -40,10 +40,10 @@ Dashboard
             </div>
             <div class="card">
                 <i class='bx bxs-category-alt'></i>
-              <h3>Area Details</h3>
+              <h3>Area Details <p>(Acre)</p></h3>
               <h5>Total Area : <b>{{ total_plots }}</b></h5>
-              <h5>Commercial : <b>{{ total_plots }}</b></h5>
-              <h5>Industerial : <b>{{ total_plots }}</b></h5>
+              <h5>Commercial : <b>{{ commercial_area }}</b></h5>
+              <h5>Industerial : <b>{{ industrial_area }}</b></h5>
               <h5>Infrastructure : <b><span class="badge text-bg-success">{{ total_plots }}</span></b></h5>
             </div>
             <div class="card">
@@ -56,9 +56,11 @@ Dashboard
             </div>
             <div class="card">
                 <i class='bx bxs-show'></i>
-              <h3>Summary</h3>
-              <p>Join Over 1 million Students.</p>
-              <button>Get Started</button>
+              <h3>Plots Percentage</h3>
+              <h5>Available  : <b>{{ available_percentage }}</b></h5>
+              <h5>Vacant  : <b>{{ vacant_percentage }}</b></h5>
+              <h5>Operational  : <b>{{ operational_percentage }}</b></h5>
+              <h5>Under Construction : <b><span class="badge text-bg-success">{{ under_construction_percentage }}</span></b></h5>
             </div>
           </div>
     
@@ -73,19 +75,19 @@ Dashboard
               </ul>
               <div class="course">
                 <div class="box">
-                  <h3>HTML</h3>
+                  <h3>INDSUSTRIES</h3>
                   <p>80% - progress</p>
                   <button>continue</button>
                   <i class="fab fa-html5 html"></i>
                 </div>
                 <div class="box">
-                  <h3>CSS</h3>
+                  <h3>REVENUE</h3>
                   <p>50% - progress</p>
                   <button>continue</button>
                   <i class="fab fa-css3-alt css"></i>
                 </div>
                 <div class="box">
-                  <h3>JavaScript</h3>
+                  <h3>PERFORMANCE</h3>
                   <p>30% - progress</p>
                   <button>continue</button>
                   <i class="fab fa-js-square js"></i>
