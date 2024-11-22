@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.db.models import Sum, Count  # Import Sum and Count for aggregations
 from .models import Plot
 from django.utils import timezone
+from django.db.models import Q
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+import xlwt
+from django.http import HttpResponse
+
 
 def base(request):
     return render(request, 'base.html')
@@ -251,3 +255,71 @@ def plotdetails(request):
     }
     print(context)
     return render(request, 'technical/plotdetails.html', context)
+
+def plot_search(request):
+    query = request.GET.get("query", "")  # Get search query from GET parameters
+    if query:
+        # Perform a wildcard search across relevant fields
+        plots = Plot.objects.filter(
+            Q(plot_number__icontains=query) |
+            Q(location__icontains=query) |
+            Q(plot_status__icontains=query) |
+            Q(plot_area__icontains=query) |
+            Q(land_type__icontains=query)
+        )
+    else:
+        plots = Plot.objects.all()  # Return all plots if no query provided
+
+    context = {
+        "plots": plots,
+    }
+    return render(request, "technical/plotdetails.html", context)
+
+def plot_search_index(request):
+    query = request.GET.get("query", "")  # Get search query from GET parameters
+    if query:
+        # Perform a wildcard search across relevant fields
+        plots = Plot.objects.filter(
+            Q(plot_number__icontains=query) |
+            Q(location__icontains=query) |
+            Q(plot_status__icontains=query) |
+            Q(plot_area__icontains=query) |
+            Q(land_type__icontains=query)
+        )
+    else:
+        plots = Plot.objects.all()  # Return all plots if no query provided
+
+    context = {
+        "plot_data": plots,
+    }
+    return render(request, "technical/index.html", context)
+
+def export_plot_to_excel(request):
+    # Create the HttpResponse object with the appropriate Excel content type
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="plots.xls"'
+
+    # Create a workbook and a worksheet
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Plots')
+
+    # Define the header style
+    header_style = xlwt.XFStyle()
+    font = xlwt.Font()
+    font.bold = True
+    header_style.font = font
+
+    # Write the header row
+    columns = ['Plot Number', 'Location', 'Plot Status', 'Land Type', 'Plot Area', 'Covered Area', 'Created At', 'Updated At']
+    for col_num, column_title in enumerate(columns):
+        ws.write(0, col_num, column_title, header_style)
+
+    # Write the data rows
+    rows = Plot.objects.values_list('plot_number', 'location', 'plot_status', 'land_type', 'plot_area', 'coverd_area', 'created_at', 'updated_at')
+    for row_num, row in enumerate(rows, start=1):
+        for col_num, cell_value in enumerate(row):
+            ws.write(row_num, col_num, str(cell_value) if cell_value else '')
+
+    # Save the workbook to the response
+    wb.save(response)
+    return response   

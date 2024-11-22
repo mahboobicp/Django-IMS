@@ -17,5 +17,8 @@ urlpatterns = [
     path('delete', views.delete_plot, name='delete'),
     path('bifurcate_plots/', views.bifurcate_plots, name='bifurcate_plots'),
     path('plotdetails/', views.plotdetails, name='plotdetails'),
+    path('plot-search/', views.plot_search, name='plot_search'),
+    path('plot-search-index/', views.plot_search_index, name='plot_search_index'),
+    path('export-plot-to-excel/', views.export_plot_to_excel, name='export_plot_to_excel'),
     
 ]
